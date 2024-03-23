@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D Platform Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Starting Menu -->
+    <div id="starting-menu" class="menu">
+      <h1>Welcome to the 2D Platform Game</h1>
+      <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Platform Level -->
+    <div id="platform-level" class="level">
+      <button
+        id="return-to-main-menu"
+        onclick="returnToMainMenu()"
+        style="display: none"
+      >
+        Return to Main Menu
+      </button>
+      <!-- This section will be dynamically populated via JavaScript -->
+    </div>
+
+    <!-- End Level -->
+    <div id="end-level" class="level">
+      <!-- This section will be dynamically populated via JavaScript -->
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
