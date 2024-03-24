@@ -18,8 +18,10 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
   /* Add the following line to set the background image */
-  background-image: url("../GameFiles/MenuAssets/MenuBackground.jpg"); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
+  background-image: url("../GameFiles/MenuAssets/menu.jpeg"); /* Replace 'path_to_your_image.jpg' with the actual path to your image */
   background-size: cover;
+  width: 1500px;
+  height: 900px;
 }
 
 .level {
@@ -27,4 +29,21 @@ body {
   width: 100%;
   height: 100vh;
   background-color: #f0f0f0;
+}
+
+#character {
+  width: 50px; /* Adjust the width of the character */
+  height: 50px; /* Adjust the height of the character */
+  background-color: red; /* Set character color */
+  position: absolute; /* Position the character relative to its containing block */
+  bottom: 0; /* Adjust character's initial vertical position */
+  left: 50%; /* Adjust character's initial horizontal position */
+  transform: translateX(-50%); /* Center character horizontally */
+}
+
+.platform {
+  /* Style for platform elements */
+  position: absolute;
+  left: 100px; /* Adjust the X position as needed */
+  bottom: 200x;
 }
