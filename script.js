@@ -1,115 +1,119 @@
+// Define variables for game elements
+const startingMenu = document.getElementById("starting-menu");
+const platformLevel = document.getElementById("platform-level");
+const endLevel = document.getElementById("end-level");
+const gameWindow = document.getElementById("game-window");
+const character = document.getElementById("character");
+
 // Function to start the game
 function startGame() {
-  document.getElementById("starting-menu").style.display = "none"; // Hide starting menu
-  document.getElementById("platform-level").style.display = "block"; // Show platform level
-  document.getElementById("return-to-main-menu").style.display = "block"; // Show return button
-  // Call function to initialize platform level (to be implemented)
+  startingMenu.style.display = "none"; // Hide starting menu
+  platformLevel.style.display = "block"; // Show platform level
+  document.getElementById("return-to-main-menu").style.display = "block"; // Show "Return to Main Menu" button
 }
 
-// Function to handle end of platform level
-function endPlatformLevel() {
-  document.getElementById("platform-level").style.display = "none"; // Hide platform level
-  document.getElementById("end-level").style.display = "block"; // Show end level
-  document.getElementById("return-to-main-menu").style.display = "none"; // Hide return button
-  // Call function to initialize end level (to be implemented)
-}
-
-// Function to return to main menu
+// Function to return to the main menu
 function returnToMainMenu() {
-  document.getElementById("end-level").style.display = "none"; // Hide end level
-  document.getElementById("platform-level").style.display = "none"; // Hide platform level
-  document.getElementById("starting-menu").style.display = "block"; // Show starting menu
-  document.getElementById("return-to-main-menu").style.display = "none"; // Hide return button on main menu
+  platformLevel.style.display = "none"; // Hide platform level
+  endLevel.innerHTML = ""; // Clear end level content
+  startingMenu.style.display = "block"; // Show starting menu
 }
 
-// Function to handle end of game
-function endGame() {
-  // Your end game logic goes here
-}
+// Player class definition
+class Player {
+  constructor() {
+    // Initialize player's properties
+    this.directionX = 0;
+    this.directionY = 0;
+    this.speed = 5;
 
-// Event listeners or additional functions can be added as needed
+    // Get the width and height of the game window and character
+    const gameWindowWidth = gameWindow.offsetWidth;
+    const gameWindowHeight = gameWindow.offsetHeight;
+    const characterWidth = character.offsetWidth;
+    const characterHeight = character.offsetHeight;
 
-// Store references to the character element and platform level container
-const character = document.getElementById("character");
-const platformLevel = document.getElementById("platform-level");
+    // Calculate initial position to center the player within the game window
+    this.positionX = (gameWindowWidth - characterWidth) / 2;
+    this.positionY = (gameWindowHeight - characterHeight) / 2;
 
-// Set initial character position and movement properties
-let characterX = 0;
-let characterY = 20;
-const characterSpeed = 10;
-const jumpStrength = 15; // Adjust jump strength as needed
-let isJumping = false;
-
-// Function to handle character movement
-function moveCharacter(direction) {
-  if (direction === "left") {
-    characterX -= characterSpeed; // Move character left
-  } else if (direction === "right") {
-    characterX += characterSpeed; // Move character right
+    // Set initial position of the character
+    character.style.left = `${this.positionX}px`;
+    character.style.bottom = `${this.positionY}px`;
   }
 
-  // Update character's CSS left property to move it horizontally
-  character.style.left = characterX + "px";
-}
+  move() {
+    // Update player's position based on direction and speed
+    this.positionX += this.directionX * this.speed;
+    this.positionY += this.directionY * this.speed;
 
-// Function to check collision between two elements
-function isColliding(element1, element2) {
-  const rect1 = element1.getBoundingClientRect();
-  const rect2 = element2.getBoundingClientRect();
+    // Calculate the maximum X and Y coordinates allowed for the player
+    const maxX = gameWindow.offsetWidth - character.offsetWidth;
+    const maxY = gameWindow.offsetHeight - character.offsetHeight;
 
-  return !(
-    rect1.right < rect2.left ||
-    rect1.left > rect2.right ||
-    rect1.bottom < rect2.top ||
-    rect1.top > rect2.bottom
-  );
-}
+    // Restrict player's movement within the bounds of the game window
+    this.positionX = Math.max(0, Math.min(this.positionX, maxX));
+    this.positionY = Math.max(0, Math.min(this.positionY, maxY));
 
-// Function to handle character jump
-function jump() {
-  console.log("Jump function called");
-
-  if (!isJumping) {
-    isJumping = true;
-    let jumpInterval = setInterval(function () {
-      console.log("Jumping...");
-      console.log("CharacterY:", characterY);
-      if (characterY >= 150 || isColliding(character, platformLevel)) {
-        // Adjust the maximum jump height as needed
-        clearInterval(jumpInterval);
-        // Descend after reaching the peak of the jump
-        descend();
-      } else {
-        characterY += jumpStrength;
-        character.style.bottom = characterY + "px";
-      }
-    }, 20);
+    // Update character's style to reflect new position
+    character.style.left = `${this.positionX}px`;
+    character.style.bottom = `${this.positionY}px`;
   }
-}
-// Function to handle character descend after jump
-function descend() {
-  let descendInterval = setInterval(function () {
-    if (characterY <= 0) {
-      clearInterval(descendInterval);
-      isJumping = false; // Reset jump status
-    } else {
-      characterY -= jumpStrength;
-      character.style.bottom = characterY + "px";
+
+  // Method to handle keydown events
+  handleKeydown(event) {
+    const key = event.key;
+
+    // Update player's direction based on pressed key
+    switch (key) {
+      case "ArrowLeft":
+        this.directionX = -1;
+        break;
+      case "ArrowRight":
+        this.directionX = 1;
+        break;
+      case "ArrowUp":
+        this.directionY = 1;
+        break;
+      case "ArrowDown":
+        this.directionY = -1;
+        break;
     }
-  }, 20);
+  }
+
+  // Method to handle keyup events
+  handleKeyup(event) {
+    const key = event.key;
+
+    // Reset player's direction when key is released
+    switch (key) {
+      case "ArrowLeft":
+      case "ArrowRight":
+        this.directionX = 0;
+        break;
+      case "ArrowUp":
+      case "ArrowDown":
+        this.directionY = 0;
+        break;
+    }
+  }
 }
 
-// Event listener for character movement
-document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowLeft") {
-    moveCharacter("left");
-  } else if (event.key === "ArrowRight") {
-    moveCharacter("right");
-  } else if (event.key === "ArrowUp") {
-    jump();
-  }
-});
+// Create a new instance of the Player class
+const player = new Player();
 
-// Set initial character position on the first platform
-//characterY = 20; // Adjust the initial character Y position according to the platform's height
-character.style.bottom = characterY + "px";
+// Add event listeners for keydown and keyup events
+window.addEventListener("keydown", (event) => player.handleKeydown(event));
+window.addEventListener("keyup", (event) => player.handleKeyup(event));
+
+// Function to update game state
+function updateGame() {
+  // Move the player
+  player.move();
+
+  // Request next frame update
+  requestAnimationFrame(updateGame);
+}
+
+// Start the game loop
+updateGame();

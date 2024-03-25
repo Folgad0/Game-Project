@@ -15,41 +15,18 @@
 
     <!-- Platform Level -->
     <div id="platform-level" class="level">
-      <button
-        id="return-to-main-menu"
-        onclick="returnToMainMenu()"
-        style="display: none"
-      >
-        Return to Main Menu
-      </button>
-      <div id="character"></div>
-
-      <!-- Add platform elements -->
-      <div
-        class="platform"
-        style="
-          width: 200px;
-          height: 20px;
-          background-color: #444;
-          position: absolute;
-          bottom: 100px;
-          left: 100px;
-        "
-      ></div>
-      <div
-        class="platform"
-        style="
-          width: 150px;
-          height: 20px;
-          background-color: #444;
-          position: absolute;
-          bottom: 200px;
-          left: 300px;
-        "
-      ></div>
-      <!-- This section will be dynamically populated via JavaScript -->
+      <div id="game-window">
+        <button
+          id="return-to-main-menu"
+          onclick="returnToMainMenu()"
+          style="display: none"
+        >
+          Return to Main Menu
+        </button>
+        <div id="character"></div>
+        <!-- This section will be dynamically populated via JavaScript -->
+      </div>
     </div>
-
     <!-- End Level -->
     <div id="end-level" class="level">
       <!-- This section will be dynamically populated via JavaScript -->

@@ -23,7 +23,19 @@ body {
   width: 1500px;
   height: 900px;
 }
-
+#game-window {
+  width: 1000px; /* Adjust width as needed */
+  height: 800px; /* Adjust height as needed */
+  border: 2px solid black; /* Border for the game window */
+  position: absolute; /* Ensure positioning works as expected */
+  top: 50%; /* Position the top edge of the game window at the vertical center of the screen */
+  left: 50%; /* Position the left edge of the game window at the horizontal center of the screen */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Center the game window both horizontally and vertically */
+  overflow: hidden; /* Hide content that exceeds the boundaries */
+}
 .level {
   display: none; /* Initially hide level sections */
   width: 100%;
@@ -39,11 +51,4 @@ body {
   bottom: 0; /* Adjust character's initial vertical position */
   left: 50%; /* Adjust character's initial horizontal position */
   transform: translateX(-50%); /* Center character horizontally */
-}
-
-.platform {
-  /* Style for platform elements */
-  position: absolute;
-  left: 100px; /* Adjust the X position as needed */
-  bottom: 200x;
 }
