@@ -18,6 +18,18 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
 }
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /*to cover all viewWidth and all viewHeight*/
+  height: 100vh;
+  background-image: url("GameFiles/PlatformAssets/Platform.png");
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Ensure the background is behind other elements */
+}
+
 #start-button {
   padding: 1em 2em; /* Adjust padding as needed */
   font-size: 1.5em; /* Adjust font size as needed */
@@ -89,7 +101,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-color: #fff;
+  background-color: #40badb;
   padding: 2%; /* Adjust padding as needed */
   border: 2px solid #000;
   width: 60%; /* Adjust width as needed */
@@ -106,7 +118,7 @@ body {
   margin-top: 2%; /* Adjust margin as needed */
   padding: 1em 2em; /* Adjust padding as needed */
   font-size: 1.5em; /* Adjust font size as needed */
-  background-color: plum;
+  background-color: rgb(1, 135, 212);
   color: #fff;
   border: none;
   border-radius: 5px;

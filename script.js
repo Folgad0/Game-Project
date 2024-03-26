@@ -18,8 +18,8 @@ let gameStarted = false; // Flag to indicate whether the game has started
 class Player {
   constructor() {
     // Initialize player's properties
-    this.positionY = 0; // Initial Y position
-    this.directionY = 0; // Vertical direction (1 for jump)
+    this.positionY = Math.floor(gameWindow.offsetHeight / 2); // Initial Y position in the middle of the screen.
+    this.velocityY = 0; // Vertical velocity
     this.gravity = 0.2; // Gravity strength
     this.jumpStrength = 5; // Jump strength
     this.isJumping = false; // Flag to indicate if the player is jumping
@@ -28,25 +28,21 @@ class Player {
   // Method to move the player
   move() {
     // Apply gravity
-    this.directionY -= this.gravity;
-
-    // Apply jump if the player is jumping
-    if (this.isJumping) {
-      this.directionY = this.jumpStrength;
-      this.isJumping = false;
-    }
+    this.velocityY += this.gravity;
 
     // Update player's position
-    this.positionY -= this.directionY;
+    this.positionY -= this.velocityY;
 
     // Ensure player stays within game window bounds
     if (this.positionY < 0) {
       this.positionY = 0;
+      this.velocityY = 0; // Stop jumping when hitting top boundary
     } else if (
       this.positionY >
       gameWindow.offsetHeight - character.offsetHeight
     ) {
       this.positionY = gameWindow.offsetHeight - character.offsetHeight;
+      this.velocityY = 0; // Stop falling when hitting bottom boundary
     }
 
     // Update character's style to reflect new position
@@ -58,11 +54,13 @@ class Player {
 
   // Method to handle jumping
   jump() {
+    // Check if the game has started
     if (gameStarted) {
-      // Check if the game has started
-      if (!this.isJumping) {
-        this.isJumping = true;
-      }
+      // Set upward velocity for jump
+      this.velocityY = -this.jumpStrength;
+
+      // Allow jumping even if the player is already jumping
+      this.isJumping = true;
     } else {
       // If game has not started, start the game
       startGame();
@@ -79,14 +77,21 @@ function startGame() {
     startingMenu.style.display = "none";
     // Show game window
     gameWindow.style.display = "block";
+    //show Background
+    background.style.display = "block";
     // Create a new player instance
     const player = new Player();
     // Make obstacles visible
     obstacleTop.style.display = "block";
     obstacleBottom.style.display = "block";
+
     // Event listener for keydown event to handle jumping
     window.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowUp" || event.key === " ") {
+      if (
+        event.key === "ArrowUp" ||
+        event.key === " " ||
+        event.type === "touchstart"
+      ) {
         player.jump();
       }
     });
@@ -132,6 +137,7 @@ function positionObstacles() {
   }
 
   // Modify moveObstacles function to check for collisions
+  // Modify moveObstacles function to check for collisions
   function moveObstacles() {
     // Check for collision between player and obstacles
     if (
@@ -153,19 +159,17 @@ function positionObstacles() {
 
     // Check if obstacles have moved out of the game window
     if (obstacleTopPosition < -obstacleTop.offsetWidth) {
+      // Set the position just outside the left edge of the game window
+      obstacleTopPosition = windowWidth;
+      obstacleBottomPosition = windowWidth;
+
       // Randomize the position for the next respawn
       const newBottomPosition = Math.floor(
         Math.random() * (windowHeight - gapHeight)
       );
 
-      // Reset obstacle positions when they move out of the screen
-      obstacleTopPosition = windowWidth;
-      obstacleBottomPosition = windowWidth;
-
       // Increment the score when obstacles are passed
       score++;
-
-      // Update the score display
       scoreDisplay.textContent = `Score: ${score}`;
 
       // Update the positions of the obstacles
