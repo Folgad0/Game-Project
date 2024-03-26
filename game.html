@@ -16,6 +16,7 @@
     <!-- Platform Level -->
     <div id="platform-level" class="level">
       <div id="game-window">
+        <p id="start-message">Press Spacebar to Start</p>
         <button id="return-to-main-menu" onclick="returnToMainMenu()">
           Return to Main Menu
         </button>
@@ -23,9 +24,10 @@
         <!-- Obstacles -->
         <div id="obstacle-top" class="obstacle"></div>
         <div id="obstacle-bottom" class="obstacle"></div>
+        <div id="score-display">Score: 0</div>
       </div>
     </div>
-
+    <div id="game-over-message" style="display: none">Game Over</div>
     <!-- End Level -->
     <div id="end-level" class="level">
       <!-- This section will be dynamically populated via JavaScript -->
