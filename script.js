@@ -1,12 +1,16 @@
 // Define variables for game elements
 const startingMenu = document.getElementById("starting-menu");
-const platformLevel = document.getElementById("platform-level");
 const gameWindow = document.getElementById("game-window");
 const character = document.getElementById("character");
 const obstacleTop = document.getElementById("obstacle-top");
 const obstacleBottom = document.getElementById("obstacle-bottom");
 const scoreDisplay = document.getElementById("score-display");
 
+// Define variables for the end game screen
+const endGameScreen = document.getElementById("end-game-screen");
+const finalScoreDisplay = document.getElementById("final-score");
+const restartButton = document.getElementById("restart-button");
+const returnMenuMain = document.getElementById("return-to-main-menu");
 let score = 0;
 let gameStarted = false; // Flag to indicate whether the game has started
 
@@ -73,8 +77,8 @@ function startGame() {
     gameStarted = true;
     // Hide starting menu
     startingMenu.style.display = "none";
-    // Show platform level
-    platformLevel.style.display = "block";
+    // Show game window
+    gameWindow.style.display = "block";
     // Create a new player instance
     const player = new Player();
     // Make obstacles visible
@@ -185,6 +189,30 @@ function positionObstacles() {
 
 // Function to end the game
 function endGame() {
-  // Display end game screen or perform any other end game actions
-  alert("Game Over! You collided with an obstacle.");
+  // Display end game screen
+  endGameScreen.style.display = "block";
+  // Display final score
+  finalScoreDisplay.textContent = score;
+  // Stop moving obstacles
+  cancelAnimationFrame(moveObstacles);
 }
+
+// Function to restart the game
+function restartGame() {
+  // Reset score
+  score = 0;
+  scoreDisplay.textContent = `Score: ${score}`;
+  // Hide end game screen
+  endGameScreen.style.display = "none";
+  // Reset player position
+  character.style.bottom = "0px";
+  // Reset obstacle positions
+  positionObstacles();
+  // Show main menu
+  displayMainMenu();
+  // Reset gameStarted flag
+  gameStarted = false;
+}
+
+// Event listener for the restart button
+restartButton.addEventListener("click", restartGame);

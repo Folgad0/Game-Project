@@ -9,28 +9,24 @@
   <body>
     <!-- Starting Menu -->
     <div id="starting-menu" class="menu">
-      <h1>Welcome to the 2D Platform Game</h1>
+      <h1>Welcome to 2D platform Game</h1>
       <button onclick="startGame()">Start Game</button>
     </div>
 
-    <!-- Platform Level -->
-    <div id="platform-level" class="level">
-      <div id="game-window">
-        <p id="start-message">Press Spacebar to Start</p>
-        <button id="return-to-main-menu" onclick="returnToMainMenu()">
-          Return to Main Menu
-        </button>
-        <div id="character"></div>
-        <!-- Obstacles -->
-        <div id="obstacle-top" class="obstacle"></div>
-        <div id="obstacle-bottom" class="obstacle"></div>
-        <div id="score-display">Score: 0</div>
-      </div>
+    <!-- Game Window -->
+    <div id="game-window" class="game-window" style="display: none">
+      <div id="character"></div>
+      <!-- Obstacles -->
+      <div id="obstacle-top" class="obstacle"></div>
+      <div id="obstacle-bottom" class="obstacle"></div>
+      <div id="score-display">Score: 0</div>
     </div>
-    <div id="game-over-message" style="display: none">Game Over</div>
-    <!-- End Level -->
-    <div id="end-level" class="level">
-      <!-- This section will be dynamically populated via JavaScript -->
+
+    <!-- End Game Screen -->
+    <div id="end-game-screen" class="end-game-screen" style="display: none">
+      <h2>Game Over</h2>
+      <p>Your score: <span id="final-score">0</span></p>
+      <button id="restart-button" onclick="restartGame()">Restart</button>
     </div>
 
     <script src="script.js"></script>
