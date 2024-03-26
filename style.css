@@ -16,7 +16,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-image: url("../GameFiles/MenuAssets/menu.jpeg");
+  background-image: url("GameFiles/MenuAssets/menu.jpeg");
   background-size: cover;
   width: 1500px;
   height: 900px;
