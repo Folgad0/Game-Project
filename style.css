@@ -10,34 +10,43 @@ body {
   background-color: #f0f0f0;
 }
 
-.menu {
-  position: absolute;
+.menu,
+.game-window {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-image: url("GameFiles/MenuAssets/menu.jpeg");
-  background-size: cover;
-  width: 1500px;
-  height: 900px;
 }
-
-.menu button,
-.end-game-screen button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #4caf50;
+#start-button {
+  padding: 1em 2em; /* Adjust padding as needed */
+  font-size: 1.5em; /* Adjust font size as needed */
+  background-color: plum;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
+#start-button:hover {
+  background-color: green;
+}
 
-.menu button:hover,
-.end-game-screen button:hover {
-  background-color: #45a049;
+.menu {
+  background-image: url("GameFiles/MenuAssets/menu.jpeg");
+  background-size: cover;
+  width: 80%; /* Adjust width as needed */
+  max-width: 1200px; /* Set maximum width */
+  height: 80%; /* Adjust height as needed */
+  max-height: 800px; /* Set maximum height */
+}
+
+.game-window {
+  width: 80%; /* Adjust width as needed */
+  max-width: 1000px; /* Set maximum width */
+  height: 80%; /* Adjust height as needed */
+  max-height: 800px; /* Set maximum height */
+  border: 2px solid #000; /* Add black border */
 }
 
 .level {
@@ -45,31 +54,24 @@ body {
   text-align: center;
 }
 
-#game-window {
-  width: 1000px;
-  height: 800px;
-  border: 2px solid black;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
 #character {
-  width: 50px;
-  height: 50px;
+  width: 5%; /* Adjust width as needed */
+  max-width: 50px; /* Set maximum width */
+  height: 7%; /* Adjust height as needed */
+  max-height: 50px; /* Set maximum height */
   background-color: red;
-  position: absolute;
+  position: fixed;
   bottom: 50%;
   left: 10%;
 }
 
 .obstacle {
-  width: 50px;
-  height: 200px;
-  background-color: green;
-  position: absolute;
+  width: 5%; /* Adjust width as needed */
+  max-width: 50px; /* Set maximum width */
+  height: 10%; /* Adjust height as needed */
+  max-height: 200px; /* Set maximum height */
+  background-color: black;
+  position: fixed;
 }
 
 #obstacle-top {
@@ -82,16 +84,36 @@ body {
 
 .end-game-screen {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   background-color: #fff;
-  padding: 20px;
+  padding: 2%; /* Adjust padding as needed */
   border: 2px solid #000;
+  width: 60%; /* Adjust width as needed */
+  max-width: 800px; /* Set maximum width */
+  height: 30%; /* Adjust height as needed */
+  max-height: 400px; /* Set maximum height */
 }
 
 .end-game-screen h2 {
-  font-size: 24px;
+  font-size: 2em; /* Adjust font size as needed */
+}
+
+.end-game-screen button {
+  margin-top: 2%; /* Adjust margin as needed */
+  padding: 1em 2em; /* Adjust padding as needed */
+  font-size: 1.5em; /* Adjust font size as needed */
+  background-color: plum;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.end-game-screen button:hover {
+  background-color: #45a049;
 }
