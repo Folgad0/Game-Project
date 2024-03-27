@@ -9,7 +9,38 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
 }
+.hidden {
+  display: none;
+}
+/* Add styles for the comic book background */
+.book {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%; /* Adjust the width of the book */
+  height: 70%; /* Adjust the height of the book */
+}
 
+.left-page {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%; /* Covering the entire page */
+  height: 100%;
+  background-image: url("GameFiles/MenuAssets/book.png"); /* Replace with the path to your comic book background image */
+  background-size: contain; /* Fit the background image inside the left page */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.right-page {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%; /* Covering half of the page */
+  height: 100%;
+}
 .menu,
 .game-window {
   position: fixed;
@@ -31,26 +62,72 @@ body {
 }
 
 #start-button {
-  padding: 1em 2em; /* Adjust padding as needed */
-  font-size: 1.5em; /* Adjust font size as needed */
-  background-color: plum;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  padding: 1em 2em;
+  font-size: 1.5em;
+  background-color: #c9db00; /* Yellow color like comic book speech bubbles */
+  color: #000; /* Black text */
+  border: 2px solid #000; /* Black border */
+  border-radius: 10px; /* Rounded corners */
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-transform: uppercase; /* Convert text to uppercase */
+  font-weight: bold; /* Bold font */
+  position: relative; /* Ensure position is relative */
+  top: 300px; /* Move the button 10px down */
+  left: -180px; /* Move the button 10px to the right */
+  z-index: 2;
 }
+#exit-button {
+  padding: 1em 2em;
+  font-size: 1.5em;
+  background-color: #c9db00; /* Yellow color like comic book speech bubbles */
+  color: #000; /* Black text */
+  border: 2px solid #000; /* Black border */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-transform: uppercase; /* Convert text to uppercase */
+  font-weight: bold; /* Bold font */
+  position: relative; /* Ensure position is relative */
+  top: 400px; /* Move the button 10px down */
+  left: -380px; /* Move the button 10px to the right */
+  z-index: 2;
+}
+.splash {
+  position: fixed;
+  top: 70px;
+  left: 450px;
+  width: 500px;
+  height: 700px;
+  background-image: url("GameFiles/MenuAssets/splash.png");
+  background-size: cover;
+  z-index: 0;
+}
+h1 {
+  font-size: 1.2vw;
+  position: absolute;
+  margin-top: 200px; /* Adjust margin top as needed */
+  margin-left: 500px; /* Adjust margin left as needed */
+}
+
 #start-button:hover {
-  background-color: green;
+  background-color: #2cf100; /* Lighter shade of yellow on hover */
+  color: #000000; /* White text on hover */
+  border-color: #0d0404; /* White border on hover */
+}
+#exit-button:hover {
+  background-color: #2cf100; /* Lighter shade of yellow on hover */
+  color: #000000; /* White text on hover */
+  border-color: #0d0404; /* White border on hover */
 }
 
 .menu {
-  background-image: url("GameFiles/MenuAssets/menu.jpeg");
-  background-size: cover;
-  width: 80%; /* Adjust width as needed */
-  max-width: 1200px; /* Set maximum width */
-  height: 80%; /* Adjust height as needed */
-  max-height: 800px; /* Set maximum height */
+  background-image: url("GameFiles/MenuAssets/MainMenu.png");
+  background-size: 36em 60em; /* Set the width to 100% and let the height adjust automatically */
+  background-repeat: no-repeat; /* Prevent image from being repeated */
+  background-position: 69% -47%; /* Center the image */
+  width: 100%; /* To cover all viewWidth */
+  height: 100%; /* To cover all viewHeight */
 }
 
 .game-window {
@@ -67,11 +144,13 @@ body {
 }
 
 #character {
-  width: 5%; /* Adjust width as needed */
-  max-width: 50px; /* Set maximum width */
-  height: 7%; /* Adjust height as needed */
-  max-height: 50px; /* Set maximum height */
-  background-color: red;
+  width: 90px; /* Set the width of the character */
+  height: 90px; /* Set the height of the character */
+  background-image: url("GameFiles/PlatformAssets/Hero.png");
+  background-size: cover; /* Ensure the image covers the entire area */
+  background-color: transparent; /* Set the background color to transparent */
+  border: none; /* Remove any border */
+  box-shadow: none; /* Remove any box shadow */
   position: fixed;
   bottom: 50%;
   left: 10%;

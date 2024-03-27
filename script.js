@@ -11,6 +11,7 @@ const endGameScreen = document.getElementById("end-game-screen");
 const finalScoreDisplay = document.getElementById("final-score");
 const restartButton = document.getElementById("restart-button");
 const returnMenuMain = document.getElementById("return-to-main-menu");
+
 let score = 0;
 let gameStarted = false; // Flag to indicate whether the game has started
 
@@ -79,6 +80,12 @@ function startGame() {
     gameWindow.style.display = "block";
     //show Background
     background.style.display = "block";
+    // Hide the comic book picture by adding a class
+    document.querySelector(".left-page").classList.add("hidden");
+    document.querySelector(".right-page").classList.add("hidden");
+    // Hide splash image
+    const splash = document.querySelector(".splash");
+    splash.style.display = "none";
     // Create a new player instance
     const player = new Player();
     // Make obstacles visible
