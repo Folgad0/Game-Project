@@ -74,7 +74,24 @@ body {
   font-weight: bold; /* Bold font */
   position: relative; /* Ensure position is relative */
   top: 300px; /* Move the button 10px down */
-  left: -180px; /* Move the button 10px to the right */
+  left: -20px; /* Move the button 10px to the right */
+  z-index: 2;
+}
+
+#play-audio-button {
+  padding: 1em 2em;
+  font-size: 1.5em;
+  background-color: #c9db00; /* Yellow color like comic book speech bubbles */
+  color: #000; /* Black text */
+  border: 2px solid #000; /* Black border */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-transform: uppercase; /* Convert text to uppercase */
+  font-weight: bold; /* Bold font */
+  position: relative; /* Ensure position is relative */
+  top: 450px; /* Move the button 10px down */
+  left: -480px; /* Move the button 10px to the right */
   z-index: 2;
 }
 #exit-button {
@@ -89,8 +106,8 @@ body {
   text-transform: uppercase; /* Convert text to uppercase */
   font-weight: bold; /* Bold font */
   position: relative; /* Ensure position is relative */
-  top: 400px; /* Move the button 10px down */
-  left: -380px; /* Move the button 10px to the right */
+  top: 650px; /* Move the button 10px down */
+  left: -110px; /* Move the button 10px to the right */
   z-index: 2;
 }
 .splash {
@@ -102,6 +119,14 @@ body {
   background-image: url("GameFiles/MenuAssets/splash.png");
   background-size: cover;
   z-index: 0;
+}
+.ground {
+  position: fixed;
+  width: 100vw; /*to cover all viewWidth and all viewHeight*/
+  height: 100vh;
+  background-image: url("GameFiles/MenuAssets/deepGround.jpg");
+  background-size: cover;
+  z-index: -4;
 }
 h1 {
   font-size: 1.2vw;
@@ -116,6 +141,11 @@ h1 {
   border-color: #0d0404; /* White border on hover */
 }
 #exit-button:hover {
+  background-color: #2cf100; /* Lighter shade of yellow on hover */
+  color: #000000; /* White text on hover */
+  border-color: #0d0404; /* White border on hover */
+}
+#play-audio-button:hover {
   background-color: #2cf100; /* Lighter shade of yellow on hover */
   color: #000000; /* White text on hover */
   border-color: #0d0404; /* White border on hover */

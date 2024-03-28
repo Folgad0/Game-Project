@@ -16,14 +16,23 @@
       <h1>A husband’s Hysterical Revenge Quest!</h1>
       <button id="start-button" onclick="startGame()">Start Game</button>
       <button id="exit-button" onclick="startGame()">Exit</button>
+      <button id="play-audio-button">Check the Story</button>
       <div class="splash"></div>
     </div>
     <div class="right-page"></div>
     <!-- Background -->
     <div id="background" style="display: none"></div>
+    <audio id="main-menu-audio">
+      <source src="GameFiles/MenuAssets/Narrator.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <div class="ground"></div>
     <!-- Game Window -->
     <div id="game-window" class="game-window" style="display: none">
       <div id="character"></div>
+      <audio id="background-music">
+        <source src="GameFiles/PlatformAssets/avengers.mp3" type="audio/mpeg" />
+      </audio>
       <!-- Obstacles -->
       <div id="obstacle-top" class="obstacle"></div>
       <div id="obstacle-bottom" class="obstacle"></div>

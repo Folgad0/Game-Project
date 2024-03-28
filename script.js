@@ -12,58 +12,62 @@ const finalScoreDisplay = document.getElementById("final-score");
 const restartButton = document.getElementById("restart-button");
 const returnMenuMain = document.getElementById("return-to-main-menu");
 
-let score = 0;
-let gameStarted = false; // Flag to indicate whether the game has started
+// Function to play the audio when the button is clicked
+function playAudio() {
+  const mainMenuAudio = document.getElementById("main-menu-audio");
+  if (mainMenuAudio) {
+    mainMenuAudio.play();
+  }
+}
+// Add event listener to the play audio button
+const playAudioButton = document.getElementById("play-audio-button");
+if (playAudioButton) {
+  playAudioButton.addEventListener("click", playAudio);
+}
 
-// Define Player class
+// Game state variables
+let score = 0;
+let gameStarted = false;
+
+// Player class definition
 class Player {
   constructor() {
-    // Initialize player's properties
-    this.positionY = Math.floor(gameWindow.offsetHeight / 2); // Initial Y position in the middle of the screen.
-    this.velocityY = 0; // Vertical velocity
-    this.gravity = 0.2; // Gravity strength
-    this.jumpStrength = 5; // Jump strength
-    this.isJumping = false; // Flag to indicate if the player is jumping
+    // Initialize player properties
+    this.positionY = Math.floor(gameWindow.offsetHeight / 2);
+    this.velocityY = 0;
+    this.gravity = 0.2;
+    this.jumpStrength = 5;
+    this.isJumping = false;
   }
 
   // Method to move the player
   move() {
-    // Apply gravity
     this.velocityY += this.gravity;
-
-    // Update player's position
     this.positionY -= this.velocityY;
 
     // Ensure player stays within game window bounds
     if (this.positionY < 0) {
       this.positionY = 0;
-      this.velocityY = 0; // Stop jumping when hitting top boundary
+      this.velocityY = 0;
     } else if (
       this.positionY >
       gameWindow.offsetHeight - character.offsetHeight
     ) {
       this.positionY = gameWindow.offsetHeight - character.offsetHeight;
-      this.velocityY = 0; // Stop falling when hitting bottom boundary
+      this.velocityY = 0;
     }
 
-    // Update character's style to reflect new position
     character.style.bottom = `${this.positionY}px`;
 
-    // Call move method again on the next frame
     requestAnimationFrame(() => this.move());
   }
 
   // Method to handle jumping
   jump() {
-    // Check if the game has started
     if (gameStarted) {
-      // Set upward velocity for jump
       this.velocityY = -this.jumpStrength;
-
-      // Allow jumping even if the player is already jumping
       this.isJumping = true;
     } else {
-      // If game has not started, start the game
       startGame();
       gameStarted = true;
     }
@@ -72,27 +76,21 @@ class Player {
 
 // Function to start the game
 function startGame() {
+  //inittiate the gameplay
   if (!gameStarted) {
     gameStarted = true;
-    // Hide starting menu
     startingMenu.style.display = "none";
-    // Show game window
     gameWindow.style.display = "block";
-    //show Background
     background.style.display = "block";
-    // Hide the comic book picture by adding a class
     document.querySelector(".left-page").classList.add("hidden");
     document.querySelector(".right-page").classList.add("hidden");
-    // Hide splash image
     const splash = document.querySelector(".splash");
     splash.style.display = "none";
-    // Create a new player instance
+
     const player = new Player();
-    // Make obstacles visible
     obstacleTop.style.display = "block";
     obstacleBottom.style.display = "block";
 
-    // Event listener for keydown event to handle jumping
     window.addEventListener("keydown", function (event) {
       if (
         event.key === "ArrowUp" ||
@@ -102,35 +100,35 @@ function startGame() {
         player.jump();
       }
     });
-    // Start the game loop
     player.move();
-    // Position and move the obstacles
     positionObstacles();
+  }
+  //play music in the game level
+  const backgroundMusic = document.getElementById("background-music");
+  if (backgroundMusic) {
+    backgroundMusic.play();
   }
 }
 
 // Function to position the obstacles and make them move
 function positionObstacles() {
-  const gapHeight = 200; // Adjust the gap height as needed
+  const gapHeight = 200;
   const windowHeight = gameWindow.offsetHeight;
   const windowWidth = gameWindow.offsetWidth;
   const bottomPosition = Math.floor(Math.random() * (windowHeight - gapHeight));
 
-  // Set the initial positions of the obstacles
-  obstacleTop.style.top = "0"; // Attach to the top of the game window
-  obstacleTop.style.left = `${windowWidth}px`; // Initial position at the right edge of the game window
-  obstacleTop.style.height = `${bottomPosition}px`; // Adjust height to create gap
+  obstacleTop.style.top = "0";
+  obstacleTop.style.left = `${windowWidth}px`;
+  obstacleTop.style.height = `${bottomPosition}px`;
 
-  obstacleBottom.style.bottom = "0"; // Attach to the bottom of the game window
-  obstacleBottom.style.left = `${windowWidth}px`; // Initial position at the right edge of the game window
+  obstacleBottom.style.bottom = "0";
+  obstacleBottom.style.left = `${windowWidth}px`;
   obstacleBottom.style.height = `${
     windowHeight - (bottomPosition + gapHeight)
-  }px`; // Adjust height to fill remaining space
+  }px`;
 
-  // Define the speed at which obstacles move
-  const obstacleSpeed = 2; // Adjust the speed as needed
+  const obstacleSpeed = 2;
 
-  // Function to check collision between two elements
   function isColliding(element1, element2) {
     const rect1 = element1.getBoundingClientRect();
     const rect2 = element2.getBoundingClientRect();
@@ -143,41 +141,37 @@ function positionObstacles() {
     );
   }
 
-  // Modify moveObstacles function to check for collisions
-  // Modify moveObstacles function to check for collisions
   function moveObstacles() {
-    // Check for collision between player and obstacles
+    // Check for collision with character
     if (
       isColliding(character, obstacleTop) ||
       isColliding(character, obstacleBottom)
     ) {
-      // Collision detected, end the game
-      endGame();
-      return; // Exit the function to stop further movement
+      endGame(); // End the game if there's a collision
+      return;
     }
 
-    // Get the current positions of the obstacles
+    // Get the current left positions of the obstacles
     let obstacleTopPosition = parseInt(obstacleTop.style.left);
     let obstacleBottomPosition = parseInt(obstacleBottom.style.left);
 
-    // Move obstacles towards the left
+    // Define obstacle speed
+    const obstacleSpeed = 2;
+
+    // Move the obstacles to the left
     obstacleTopPosition -= obstacleSpeed;
     obstacleBottomPosition -= obstacleSpeed;
 
-    // Check if obstacles have moved out of the game window
+    // Check if the left edge of the obstacle is outside the game window
     if (obstacleTopPosition < -obstacleTop.offsetWidth) {
-      // Set the position just outside the left edge of the game window
+      // Reset obstacle to the right edge
       obstacleTopPosition = windowWidth;
       obstacleBottomPosition = windowWidth;
 
-      // Randomize the position for the next respawn
+      // Generate a new random position for the bottom obstacle
       const newBottomPosition = Math.floor(
         Math.random() * (windowHeight - gapHeight)
       );
-
-      // Increment the score when obstacles are passed
-      score++;
-      scoreDisplay.textContent = `Score: ${score}`;
 
       // Update the positions of the obstacles
       obstacleTop.style.height = `${newBottomPosition}px`; // Adjust height to create gap
@@ -190,38 +184,38 @@ function positionObstacles() {
     obstacleTop.style.left = `${obstacleTopPosition}px`;
     obstacleBottom.style.left = `${obstacleBottomPosition}px`;
 
-    // Call the moveObstacles function again on the next frame
+    // If the left edge of the obstacle is outside the game window
+    if (obstacleTopPosition < 0) {
+      // Move the obstacle completely outside the game window
+      obstacleTop.style.left = `${windowWidth}px`;
+      obstacleBottom.style.left = `${windowWidth}px`;
+      // Increment score when no collision occurs
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`; // Update score display
+    }
+
+    // Request animation frame for continuous movement
     requestAnimationFrame(moveObstacles);
   }
 
-  // Start moving obstacles
   moveObstacles();
 }
 
 // Function to end the game
 function endGame() {
-  // Display end game screen
   endGameScreen.style.display = "block";
-  // Display final score
   finalScoreDisplay.textContent = score;
-  // Stop moving obstacles
   cancelAnimationFrame(moveObstacles);
 }
 
 // Function to restart the game
 function restartGame() {
-  // Reset score
   score = 0;
   scoreDisplay.textContent = `Score: ${score}`;
-  // Hide end game screen
   endGameScreen.style.display = "none";
-  // Reset player position
   character.style.bottom = "0px";
-  // Reset obstacle positions
   positionObstacles();
-  // Show main menu
   displayMainMenu();
-  // Reset gameStarted flag
   gameStarted = false;
 }
 
