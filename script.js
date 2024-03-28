@@ -112,11 +112,14 @@ function startGame() {
 
 // Function to position the obstacles and make them move
 function positionObstacles() {
-  const gapHeight = 200;
+  const gapHeight = 200; // Initial gap height
   const windowHeight = gameWindow.offsetHeight;
   const windowWidth = gameWindow.offsetWidth;
+
+  // Randomize the gap position for the obstacles
   const bottomPosition = Math.floor(Math.random() * (windowHeight - gapHeight));
 
+  // Set positions and sizes for obstacles
   obstacleTop.style.top = "0";
   obstacleTop.style.left = `${windowWidth}px`;
   obstacleTop.style.height = `${bottomPosition}px`;
@@ -127,48 +130,24 @@ function positionObstacles() {
     windowHeight - (bottomPosition + gapHeight)
   }px`;
 
-  const obstacleSpeed = 2;
-
-  function isColliding(element1, element2) {
-    const rect1 = element1.getBoundingClientRect();
-    const rect2 = element2.getBoundingClientRect();
-
-    return !(
-      rect1.top > rect2.bottom ||
-      rect1.bottom < rect2.top ||
-      rect1.left > rect2.right ||
-      rect1.right < rect2.left
-    );
-  }
-
   function moveObstacles() {
-    // Check for collision with character
-    if (
-      isColliding(character, obstacleTop) ||
-      isColliding(character, obstacleBottom)
-    ) {
-      endGame(); // End the game if there's a collision
-      return;
-    }
+    let obstaclePassedBoundary = false; // Flag to track if obstacle passed the boundary
 
     // Get the current left positions of the obstacles
     let obstacleTopPosition = parseInt(obstacleTop.style.left);
     let obstacleBottomPosition = parseInt(obstacleBottom.style.left);
 
-    // Define obstacle speed
-    const obstacleSpeed = 2;
-
     // Move the obstacles to the left
-    obstacleTopPosition -= obstacleSpeed;
-    obstacleBottomPosition -= obstacleSpeed;
+    obstacleTopPosition -= 2;
+    obstacleBottomPosition -= 2;
 
-    // Check if the left edge of the obstacle is outside the game window
+    // If the left edge of the obstacle is outside the game window
     if (obstacleTopPosition < -obstacleTop.offsetWidth) {
       // Reset obstacle to the right edge
       obstacleTopPosition = windowWidth;
       obstacleBottomPosition = windowWidth;
 
-      // Generate a new random position for the bottom obstacle
+      // Randomize the gap position for the obstacles
       const newBottomPosition = Math.floor(
         Math.random() * (windowHeight - gapHeight)
       );
@@ -178,26 +157,40 @@ function positionObstacles() {
       obstacleBottom.style.height = `${
         windowHeight - (newBottomPosition + gapHeight)
       }px`; // Adjust height to fill remaining space
+
+      // If obstacle passed the boundary, increment score
+      if (!obstaclePassedBoundary) {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`; // Update score display
+        obstaclePassedBoundary = true; // Set flag to true
+      }
     }
 
     // Update the positions of the obstacles
     obstacleTop.style.left = `${obstacleTopPosition}px`;
     obstacleBottom.style.left = `${obstacleBottomPosition}px`;
 
-    // If the left edge of the obstacle is outside the game window
-    if (obstacleTopPosition < 0) {
-      // Move the obstacle completely outside the game window
-      obstacleTop.style.left = `${windowWidth}px`;
-      obstacleBottom.style.left = `${windowWidth}px`;
-      // Increment score when no collision occurs
-      score++;
-      scoreDisplay.textContent = `Score: ${score}`; // Update score display
+    // Check for collision with character
+    const characterRect = character.getBoundingClientRect();
+    const obstacleTopRect = obstacleTop.getBoundingClientRect();
+    const obstacleBottomRect = obstacleBottom.getBoundingClientRect();
+
+    if (
+      characterRect.right > obstacleTopRect.left &&
+      characterRect.left < obstacleTopRect.right &&
+      (characterRect.top < obstacleTopRect.bottom ||
+        characterRect.bottom > obstacleBottomRect.top)
+    ) {
+      // Collision detected, end the game
+      endGame();
+      return;
     }
 
     // Request animation frame for continuous movement
     requestAnimationFrame(moveObstacles);
   }
 
+  // Start moving obstacles
   moveObstacles();
 }
 
