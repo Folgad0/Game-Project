@@ -44,3 +44,4 @@ Try reaching the furthest stage you can get to, and enjoy the intense soundtrack
 - [Trello Link](https://trello.com/b/CUTTGo6s/marvel-project)
 - [Github repository Link](https://github.com/Folgad0/Game-Project)
 - [Deployment Link](https://folgad0.github.io/Game-Project/)
+- [Presentation Slides] https://prezi.com/p/edit/fcuhfyne1a3q/
