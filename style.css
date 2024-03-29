@@ -113,9 +113,9 @@ body {
 .splash {
   position: fixed;
   top: 70px;
-  left: 450px;
-  width: 500px;
-  height: 700px;
+  left: 420px;
+  width: 490px;
+  height: 760px;
   background-image: url("GameFiles/MenuAssets/splash.png");
   background-size: cover;
   z-index: 0;
@@ -153,9 +153,9 @@ h1 {
 
 .menu {
   background-image: url("GameFiles/MenuAssets/MainMenu.png");
-  background-size: 36em 60em; /* Set the width to 100% and let the height adjust automatically */
+  background-size: 38em 64em; /* Set the width to 100% and let the height adjust automatically */
   background-repeat: no-repeat; /* Prevent image from being repeated */
-  background-position: 69% -47%; /* Center the image */
+  background-position: 59em 2.5em; /* Center the image */
   width: 100%; /* To cover all viewWidth */
   height: 100%; /* To cover all viewHeight */
 }

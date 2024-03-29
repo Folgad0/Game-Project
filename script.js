@@ -112,7 +112,7 @@ function startGame() {
 
 // Function to position the obstacles and make them move
 function positionObstacles() {
-  const gapHeight = 200; // Initial gap height
+  const gapHeight = 100; // Initial gap height
   const windowHeight = gameWindow.offsetHeight;
   const windowWidth = gameWindow.offsetWidth;
 
